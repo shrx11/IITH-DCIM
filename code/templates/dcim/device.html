@@ -1,0 +1,120 @@
+{% extends 'dcim/device/base.html' %}
+{% load render_table from django_tables2 %}
+{% load buttons %}
+{% load static %}
+{% load helpers %}
+{% load plugins %}
+
+{% block content %}
+    <div class="row">
+        <div class="col col-12 col-xl-6">
+            <div class="card">
+                <h5 class="card-header">
+                    Device
+                </h5>
+                <div class="card-body">
+                    <table class="table table-hover attr-table">
+                        <tr>
+                            <th scope="row">Lab</th>
+                            <td>{{ object.lab|linkify }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Rack</th>
+                            <td class="position-relative">
+                                {% if object.rack %}
+                                    {{ object.rack|linkify }}
+                                    <div class="position-absolute top-50 end-0 translate-middle-y noprint">
+                                      <a href="{{ object.rack.get_absolute_url }}?device={{ object.pk }}" class="btn btn-primary btn-sm" title="Highlight device">
+                                        <i class="mdi mdi-view-day-outline"></i>
+                                      </a>
+                                    </div>
+                                {% else %}
+                                    {{ ''|placeholder }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Position</th>
+                            <td>
+                                {% if object.parent_bay %}
+                                    {% with object.parent_bay.device as parent %}
+                                        {{ parent|linkify }} / {{ object.parent_bay }}
+                                        {% if parent.position %}
+                                            (U{{ parent.position|floatformat }} / {{ parent.get_face_display }})
+                                        {% endif %}
+                                    {% endwith %}
+                                {% elif object.rack and object.position %}
+                                    <span>U{{ object.position|floatformat }} / {{ object.get_face_display }}</span>
+                                {% elif object.rack and object.device_type.u_height %}
+                                    <span class="badge bg-warning">Not racked</span>
+                                {% else %}
+                                    {{ ''|placeholder }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Tenant</th>
+                            <td>
+                                {% if object.tenant.group %}
+                                    {{ object.tenant.group|linkify }} /
+                                {% endif %}
+                                {{ object.tenant|linkify|placeholder }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Device Type</th>
+                            <td>
+                                {{ object.device_type|linkify:"get_full_name" }} ({{ object.device_type.u_height|floatformat }}U)
+                            </td>
+                        </tr>
+                        
+                    </table>
+                </div>
+            </div>
+            {% include 'inc/panels/custom_fields.html' %}
+            {% include 'inc/panels/tags.html' %}
+            {% plugin_left_page object %}
+        </div>
+        <div class="col col-12 col-xl-6">
+            <div class="card">
+                <h5 class="card-header">Management</h5>
+                <div class="card-body">
+                    <table class="table table-hover attr-table">
+                        <tr>
+                            <th scope="row">Status</th>
+                            <td>{% badge object.get_status_display bg_color=object.get_status_color %}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Role</th>
+                            <td>{{ object.device_role|linkify }}</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+            </div>
+            {% include 'inc/panels/contacts.html' %}
+            {% if object.rack and object.position %}
+              <div class="row" style="margin-bottom: 20px">
+                <div class="col col-md-6 col-sm-6 col-xs-12 text-center">
+                  <div style="margin-left: 30px">
+                    <h4>Front</h4>
+                    {% include 'dcim/inc/rack_elevation.html' with object=object.rack face='front' extra_params=svg_extra %}
+                  </div>
+                </div>
+                <div class="col col-md-6 col-sm-6 col-xs-12 text-center">
+                  <div style="margin-left: 30px">
+                    <h4>Rear</h4>
+                    {% include 'dcim/inc/rack_elevation.html' with object=object.rack face='rear' extra_params=svg_extra %}
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+            {% plugin_right_page object %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-md-12">
+            {% plugin_full_width_page object %}
+        </div>
+    </div>
+{% endblock %}

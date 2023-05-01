@@ -1,0 +1,14 @@
+{% extends 'generic/object.html' %}
+{% load buttons %}
+{% load helpers %}
+{% load plugins %}
+
+{% block title %}{{ object.manufacturer }} {{ object.model }}{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  <li class="breadcrumb-item"><a href="{% url 'dcim:devicetype_list' %}?manufacturer_id={{ object.manufacturer.pk }}">{{ object.manufacturer }}</a></li>
+{% endblock %}
+
+{% block extra_controls %}
+{% endblock %}

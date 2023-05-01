@@ -1,0 +1,98 @@
+{% extends 'generic/object.html' %}
+{% load helpers %}
+{% load plugins %}
+{% load tz %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% if object.region %}
+    {% for region in object.region.get_ancestors %}
+      <li class="breadcrumb-item"><a href="{% url 'dcim:lab_list' %}?region_id={{ region.pk }}">{{ region }}</a></li>
+    {% endfor %} 
+    <li class="breadcrumb-item"><a href="{% url 'dcim:lab_list' %}?region_id={{ object.region.pk }}">{{ object.region }}</a></li>
+  {% elif object.group %}
+    {% for group in object.group.get_ancestors %}
+      <li class="breadcrumb-item"><a href="{% url 'dcim:lab_list' %}?group_id={{ group.pk }}">{{ group }}</a></li>
+    {% endfor %}
+    <li class="breadcrumb-item"><a href="{% url 'dcim:lab_list' %}?group_id={{ object.group.pk }}">{{ object.group }}</a></li>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+	<div class="col col-md-6">
+    <div class="card">
+      <h5 class="card-header">Lab</h5>
+      <div class="card-body">
+        <table class="table table-hover attr-table">
+          <tr>
+            <th scope="row">Department</th>
+            <td>
+              {% if object.group %}
+                {% for group in object.group.get_ancestors %}
+                  {{ group|linkify }} /
+                {% endfor %}
+                {{ object.group|linkify }}
+              {% else %}
+                {{ ''|placeholder }}
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Status</th>
+            <td>{% badge object.get_status_display bg_color=object.get_status_color %}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    {% include 'inc/panels/custom_fields.html' %}
+    {% include 'inc/panels/tags.html' %}
+    <!-- {% include 'inc/panels/comments.html' %} -->
+    {% plugin_left_page object %}
+    </div>
+    <div class="col col-md-6">
+      <div class="card">
+        <h5 class="card-header">Related Objects</h5>
+        <div class="card-body">
+          <table class="table table-hover attr-table">
+            <tr>
+              <th scope="row">Racks</th>
+              <td class="text-end">
+                {% if stats.rack_count %}
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      {{ stats.rack_count }}
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="{% url 'dcim:rack_list' %}?lab_id={{ object.pk }}">View Racks</a></li>
+                      <li><a class="dropdown-item" href="{% url 'dcim:rack_elevation_list' %}?lab_id={{ object.pk }}">View Elevations</a></li>
+                    </ul>
+                  </div>
+                {% else %}
+                  {{ ''|placeholder }}
+                {% endif %}
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Devices</th>
+              <td class="text-end">
+                {% if stats.device_count %}
+                  <a href="{% url 'dcim:device_list' %}?lab_id={{ object.pk }}">{{ stats.device_count }}</a>
+                {% else %}
+                  {{ ''|placeholder }}
+                {% endif %}
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      {% include 'dcim/inc/nonracked_devices.html' %}
+      {% include 'inc/panels/contacts.html' %}
+	</div>
+</div>
+<div class="row">
+  <div class="col col-md-12">
+    {% plugin_full_width_page object %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'generic/object.html' %}
+{% load buttons %}
+{% load static %}
+{% load helpers %}
+{% load plugins %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  <li class="breadcrumb-item"><a href="{% url 'dcim:device_list' %}?lab_id={{ object.lab.pk }}">{{ object.lab }}</a></li>
+  {% if object.parent_bay %}
+    <li class="breadcrumb-item"><a href="{% url 'dcim:device' pk=object.parent_bay.device.pk %}">{{ object.parent_bay.device }}</a></li>
+    <li class="breadcrumb-item">{{ object.parent_bay }}</li>
+  {% endif %}
+{% endblock %}
+
+{% block extra_controls %}
+{% endblock %}
