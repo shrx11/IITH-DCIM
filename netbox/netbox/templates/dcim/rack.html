@@ -1,0 +1,203 @@
+{% extends 'dcim/rack/base.html' %}
+{% load buttons %}
+{% load helpers %}
+{% load static %}
+{% load plugins %}
+
+{% block content %}
+  <div class="row">
+	  <div class="col col-12 col-xl-5">
+        <div class="card">
+            <h5 class="card-header">
+                Rack
+            </h5>
+            <div class="card-body">
+                <table class="table table-hover attr-table">
+                    <tr>
+                        <th scope="row">Site</th>
+                        <td>
+                            {% if object.site.region %}
+                                {{ object.site.region|linkify }} /
+                            {% endif %}
+                            {{ object.site|linkify }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Location</th>
+                        <td>
+                            {% if object.location %}
+                                {% for location in object.location.get_ancestors %}
+                                    {{ location|linkify }} /
+                                {% endfor %}
+                                {{ object.location|linkify }}
+                            {% else %}
+                                {{ ''|placeholder }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Facility ID</th>
+                        <td>{{ object.facility_id|placeholder }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Tenant</th>
+                        <td>
+                            {% if object.tenant.group %}
+                                {{ object.tenant.group|linkify }} /
+                            {% endif %}
+                            {{ object.tenant|linkify|placeholder }}
+                        </td>
+                    </tr>
+                     <tr>
+                        <th scope="row">Status</th>
+                        <td>{% badge object.get_status_display bg_color=object.get_status_color %}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Role</th>
+                        <td>{{ object.role|linkify|placeholder }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>{{ object.description|placeholder }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Serial Number</th>
+                        <td class="font-monospace">{{ object.serial|placeholder }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Asset Tag</th>
+                        <td class="font-monospace">{{ object.asset_tag|placeholder }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Space Utilization</th>
+                        <td>{% utilization_graph object.get_utilization %}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Power Utilization</th>
+                        <td>{% utilization_graph object.get_power_utilization %}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <h5 class="card-header">Dimensions</h5>
+            <div class="card-body">
+                <table class="table table-hover attr-table">
+                    <tr>
+                        <th scope="row">Type</th>
+                        <td>
+                            {% if object.type %}
+                                {{ object.get_type_display }}
+                            {% else %}
+                                {{ ''|placeholder }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Width</th>
+                        <td>{{ object.get_width_display }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Height</th>
+                        <td>{{ object.u_height }}U ({% if object.desc_units %}descending{% else %}ascending{% endif %})</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Outer Width</th>
+                        <td>
+                            {% if object.outer_width %}
+                                {{ object.outer_width }} {{ object.get_outer_unit_display }}
+                            {% else %}
+                                {{ ''|placeholder }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Outer Depth</th>
+                        <td>
+                            {% if object.outer_depth %}
+                                {{ object.outer_depth }} {{ object.get_outer_unit_display }}
+                            {% else %}
+                                {{ ''|placeholder }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Mounting Depth</th>
+                        <td>
+                            {% if object.mounting_depth %}
+                                {{ object.mounting_depth }} Millimeters
+                            {% else %}
+                                {{ ''|placeholder }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Rack Weight</th>
+                        <td>
+                            {% if object.weight %}
+                                {{ object.weight|floatformat }} {{ object.get_weight_unit_display }}
+                            {% else %}
+                                {{ ''|placeholder }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Maximum Weight</th>
+                        <td>
+                            {% if object.max_weight %}
+                                {{ object.max_weight }} {{ object.get_weight_unit_display }}
+                            {% else %}
+                                {{ ''|placeholder }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Total Weight</th>
+                        <td>
+                          {{ object.total_weight|floatformat }} Kilograms
+                          ({{ object.total_weight|kg_to_pounds|floatformat }} Pounds)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        {% include 'inc/panels/custom_fields.html' %}
+        {% include 'inc/panels/tags.html' %}
+        {% include 'inc/panels/comments.html' %}
+        {% include 'inc/panels/image_attachments.html' %}
+        {% plugin_left_page object %}
+	  </div>
+    <div class="col col-12 col-xl-7">
+      <div class="text-end mb-4">
+        <select class="btn btn-sm btn-outline-dark rack-view">
+          <option value="images-and-labels" selected="selected">Images and Labels</option>
+          <option value="images-only">Images only</option>
+          <option value="labels-only">Labels only</option>
+        </select>
+      </div>
+        <div class="row" style="margin-bottom: 20px">
+            <div class="col col-md-6 col-sm-6 col-xs-12 text-center">
+              <div style="margin-left: 30px">
+                <h4>Front</h4>
+                {% include 'dcim/inc/rack_elevation.html' with face='front' extra_params=svg_extra %}
+              </div>
+            </div>
+            <div class="col col-md-6 col-sm-6 col-xs-12 text-center">
+              <div style="margin-left: 30px">
+                <h4>Rear</h4>
+                {% include 'dcim/inc/rack_elevation.html' with face='rear' extra_params=svg_extra %}
+              </div>
+            </div>
+        </div>
+        {% include 'inc/panels/related_objects.html' %}
+        {% include 'dcim/inc/nonracked_devices.html' %}
+        {% include 'inc/panels/contacts.html' %}
+        {% plugin_right_page object %}
+    </div>
+  </div>
+  <div class="row">
+      <div class="col col-md-12">
+          {% plugin_full_width_page object %}
+      </div>
+  </div>
+{% endblock %}

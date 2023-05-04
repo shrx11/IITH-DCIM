@@ -1,0 +1,113 @@
+{% extends 'generic/object.html' %}
+{% load helpers %}
+{% load plugins %}
+{% load render_table from django_tables2 %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  <li class="breadcrumb-item">
+    <a href="{% url 'virtualization:virtualmachine_interfaces' pk=object.virtual_machine.pk %}">{{ object.virtual_machine }}</a>
+  </li>
+{% endblock %}
+
+{% block content %}
+<div class="row mb-3">
+	<div class="col col-md-6">
+        <div class="card">
+            <h5 class="card-header">
+                Interface
+            </h5>
+            <div class="card-body">
+                <table class="table table-hover attr-table">
+                    <tr>
+                        <th scope="row">Virtual Machine</th>
+                        <td>{{ object.virtual_machine|linkify }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Name</th>
+                        <td>{{ object.name }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Enabled</th>
+                        <td>
+                            {% if object.enabled %}
+                                <span class="text-success"><i class="mdi mdi-check-bold"></i></span>
+                            {% else %}
+                                <span class="text-danger"><i class="mdi mdi-close"></i></span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Parent</th>
+                        <td>{{ object.parent|linkify|placeholder }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Bridge</th>
+                        <td>{{ object.bridge|linkify|placeholder }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">VRF</th>
+                        <td>{{ object.vrf|linkify|placeholder }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>{{ object.description|placeholder }} </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">MTU</th>
+                        <td>{{ object.mtu|placeholder }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">MAC Address</th>
+                        <td><span class="text-monospace">{{ object.mac_address|placeholder }}</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">802.1Q Mode</th>
+                        <td>{{ object.get_mode_display|placeholder }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        {% include 'inc/panels/tags.html' %}
+        {% plugin_left_page object %}
+    </div>
+    <div class="col col-md-6">
+        {% include 'inc/panels/custom_fields.html' %}
+        {% include 'ipam/inc/panels/fhrp_groups.html' %}
+        {% plugin_right_page object %}
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col col-md-12">
+        <div class="card">
+            <h5 class="card-header">IP Addresses</h5>
+            <div class="card-body htmx-container table-responsive"
+              hx-get="{% url 'ipam:ipaddress_list' %}?vminterface_id={{ object.pk }}"
+              hx-trigger="load"
+            ></div>
+            {% if perms.ipam.add_ipaddress %}
+                <div class="card-footer text-end noprint">
+                    <a href="{% url 'ipam:ipaddress_add' %}?virtual_machine={{ object.virtual_machine.pk }}&vminterface={{ object.pk }}&return_url={{ object.get_absolute_url }}" class="btn btn-sm btn-primary">
+                        <span class="mdi mdi-plus-thick" aria-hidden="true"></span> Add IP Address
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col col-md-12">
+        {% include 'inc/panel_table.html' with table=vlan_table heading="VLANs" %}
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col col-md-12">
+        {% include 'inc/panel_table.html' with table=child_interfaces_table heading="Child Interfaces" %}
+    </div>
+</div>
+<div class="row">
+    <div class="col col-md-12">
+        {% plugin_full_width_page object %}
+    </div>
+</div>
+{% endblock %}

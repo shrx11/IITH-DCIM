@@ -1,0 +1,38 @@
+{% extends 'base/layout.html' %}
+{% load helpers %}
+{% load form_helpers %}
+{% load render_table from django_tables2 %}
+
+{% block title %}Search{% endblock %}
+
+{% block tabs %}
+  <ul class="nav nav-tabs px-3">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" type="button" role="tab">
+        Results
+      </button>
+    </li>
+  </ul>
+{% endblock tabs %}
+
+{% block content %}
+  <div class="row px-3">
+    <div class="col col-6 offset-3 py-3">
+      <form action="{% url 'search' %}" method="get" class="form form-horizontal">
+        {% render_form form %}
+        <div class="text-end">
+          <button type="submit" class="btn btn-primary">
+            <span class="mdi mdi-magnify" aria-hidden="true"></span> Search
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row px-3">
+    <div class="card">
+      <div class="card-body htmx-container table-responsive" id="object_list">
+        {% include 'htmx/table.html' %}
+      </div>
+    </div>
+  </div>
+{% endblock content %}

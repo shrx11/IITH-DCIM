@@ -1,0 +1,98 @@
+{% extends 'generic/object.html' %}
+{% load helpers %}
+{% load plugins %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  <li class="breadcrumb-item">
+    <a href="{% url 'dcim:device_consoleports' pk=object.device.pk %}">{{ object.device }}</a>
+  </li>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col col-md-6">
+            <div class="card">
+                <h5 class="card-header">
+                    Console Port
+                </h5>
+                <div class="card-body">
+                    <table class="table table-hover attr-table">
+                        <tr>
+                            <th scope="row">Device</th>
+                            <td>{{ object.device|linkify }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Module</th>
+                            <td>{{ object.module|linkify|placeholder }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Name</th>
+                            <td>{{ object.name }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Label</th>
+                            <td>{{ object.label|placeholder }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Type</th>
+                            <td>{{ object.get_type_display }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Speed</th>
+                            <td>{{ object.get_speed_display }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Description</th>
+                            <td>{{ object.description|placeholder }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            {% include 'inc/panels/custom_fields.html' %}
+            {% include 'inc/panels/tags.html' %}
+            {% plugin_left_page object %}
+        </div>
+        <div class="col col-md-6">
+          <div class="card">
+            <h5 class="card-header">Connection</h5>
+            <div class="card-body">
+              {% if object.mark_connected %}
+                <span class="text-success"><i class="mdi mdi-check-bold"></i></span> Marked as connected
+              {% elif object.cable %}
+                {% include 'dcim/inc/connection_endpoints.html' with trace_url='dcim:consoleport_trace' %}
+              {% else %}
+                <div class="text-muted">
+                  Not Connected
+                  {% if perms.dcim.add_cable %}
+                    <div class="dropdown float-end">
+                      <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="mdi mdi-ethernet-cable" aria-hidden="true"></span> Connect
+                      </button>
+                      <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                          <a href="{% url 'dcim:cable_add' %}?a_terminations_type=dcim.consoleport&a_terminations={{ object.pk }}&b_terminations_type=dcim.consoleserverport&return_url={{ object.get_absolute_url }}" class="dropdown-item">Console Server Port</a>
+                        </li>
+                        <li>
+                          <a href="{% url 'dcim:cable_add' %}?a_terminations_type=dcim.consoleport&a_terminations={{ object.pk }}&b_terminations_type=dcim.frontport&return_url={{ object.get_absolute_url }}" class="dropdown-item">Front Port</a>
+                        </li>
+                        <li>
+                          <a href="{% url 'dcim:cable_add' %}?a_terminations_type=dcim.consoleport&a_terminations={{ object.pk }}&b_terminations_type=dcim.rearport&return_url={{ object.get_absolute_url }}" class="dropdown-item">Rear Port</a>
+                        </li>
+                      </ul>
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+          {% include 'dcim/inc/panels/inventory_items.html' %}
+          {% plugin_right_page object %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-md-12">
+            {% plugin_full_width_page object %}
+        </div>
+    </div>
+{% endblock %}

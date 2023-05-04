@@ -1,0 +1,62 @@
+{% extends 'generic/object.html' %}
+{% load helpers %}
+{% load plugins %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% if object.group %}
+    <li class="breadcrumb-item"><a href="{% url 'tenancy:tenant_list' %}?group_id={{ object.group.pk }}">{{ object.group }}</a></li>
+  {% endif %}
+{% endblock breadcrumbs %}
+
+{% block content %}
+  <div class="row">
+    <div class="col col-md-7">
+      <div class="card">
+        <h5 class="card-header">Tenant</h5>
+        <div class="card-body">
+          <table class="table table-hover attr-table">
+            <tr>
+              <td>Group</td>
+              <td>{{ object.group|linkify|placeholder }}</td>
+            </tr>
+            <tr>
+              <td>Description</td>
+              <td>{{ object.description|placeholder }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      {% include 'inc/panels/custom_fields.html' %}
+      {% include 'inc/panels/tags.html' %}
+      {% include 'inc/panels/comments.html' %}
+      {% include 'inc/panels/contacts.html' %}
+      <div class="card">
+      		 <div class="card-body">
+                    <h5 class="card-title">Grant Access</h5>
+                    <p class="card-text">Enter the name of the group.</p>
+                    <form>
+                        <div class="form-group">  
+                            <label for="labInput">Group:</label>
+                            <input type="text" class="form-control" id="labInput" value="{{object.tenant}}" required>
+                           
+                           
+	                   
+                        </div>
+                        <button type="submit" class="btn btn-primary">Grant  Access</button>
+                    </form>
+                  </div>
+       </div>
+      {% plugin_left_page object %}
+    </div>
+    <div class="col col-md-5">
+      {% include 'inc/panels/related_objects.html' %}
+      {% plugin_right_page object %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col-md-12">
+      {% plugin_full_width_page object %}
+    </div>
+  </div>
+{% endblock %}

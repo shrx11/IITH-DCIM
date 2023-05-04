@@ -1,0 +1,23 @@
+{% extends 'generic/object.html' %}
+{% load buttons %}
+{% load helpers %}
+{% load plugins %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  <li class="breadcrumb-item">
+    {% if object.cluster %}
+      <a href="{% url 'virtualization:virtualmachine_list' %}?cluster_id={{ object.cluster.pk }}">{{ object.cluster }}</a>
+    {% else %}
+      <a href="{% url 'virtualization:virtualmachine_list' %}?site_id={{ object.site.pk }}">{{ object.site }}</a>
+    {% endif %}
+  </li>
+{% endblock %}
+
+{% block extra_controls %}
+  {% if perms.virtualization.add_vminterface %}
+    <a href="{% url 'virtualization:vminterface_add' %}?virtual_machine={{ object.pk }}&return_url={% url 'virtualization:virtualmachine_interfaces' pk=object.pk %}" class="btn btn-sm btn-primary">
+      <i class="mdi mdi-plus-thick"></i> Add Interfaces
+    </a>
+  {% endif %}
+{% endblock %}

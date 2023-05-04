@@ -1,0 +1,184 @@
+{% extends 'generic/object.html' %}
+{% load helpers %}
+{% load plugins %}
+{% load tz %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% if object.region %}
+    {% for region in object.region.get_ancestors %}
+      <li class="breadcrumb-item"><a href="{% url 'dcim:site_list' %}?region_id={{ region.pk }}">{{ region }}</a></li>
+    {% endfor %}
+    <li class="breadcrumb-item"><a href="{% url 'dcim:site_list' %}?region_id={{ object.region.pk }}">{{ object.region }}</a></li>
+  {% elif object.group %}
+    {% for group in object.group.get_ancestors %}
+      <li class="breadcrumb-item"><a href="{% url 'dcim:site_list' %}?group_id={{ group.pk }}">{{ group }}</a></li>
+    {% endfor %}
+    <li class="breadcrumb-item"><a href="{% url 'dcim:site_list' %}?group_id={{ object.group.pk }}">{{ object.group }}</a></li>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+	<div class="col col-md-6">
+    <div class="card">
+      <h5 class="card-header">Site</h5>
+      <div class="card-body">
+        <table class="table table-hover attr-table">
+          <tr>
+            <th scope="row">Region</th>
+            <td>
+              {% if object.region %}
+                {% for region in object.region.get_ancestors %}
+                  {{ region|linkify }} /
+                {% endfor %}
+                {{ object.region|linkify }}
+              {% else %}
+                {{ ''|placeholder }}
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Group</th>
+            <td>
+              {% if object.group %}
+                {% for group in object.group.get_ancestors %}
+                  {{ group|linkify }} /
+                {% endfor %}
+                {{ object.group|linkify }}
+              {% else %}
+                {{ ''|placeholder }}
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Status</th>
+            <td>{% badge object.get_status_display bg_color=object.get_status_color %}</td>
+          </tr>
+          <tr>
+            <th scope="row">Tenant</th>
+            <td>
+              {% if object.tenant.group %}
+                {{ object.tenant.group|linkify }} /
+              {% endif %}
+              {{ object.tenant|linkify|placeholder }}
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Facility</th>
+            <td>{{ object.facility|placeholder }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Description</th>
+            <td>{{ object.description|placeholder }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Time Zone</th>
+            <td>
+              {% if object.time_zone %}
+                {{ object.time_zone }} (UTC {{ object.time_zone|tzoffset }})<br />
+                <small class="text-muted">Site time: {% timezone object.time_zone %}{% annotated_now %}{% endtimezone %}</small>
+              {% else %}
+                {{ ''|placeholder }}
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Physical Address</th>
+            <td class="position-relative">
+              {% if object.physical_address %}
+                <div class="position-absolute top-50 end-0 translate-middle-y noprint">
+                  <a href="{{ config.MAPS_URL }}{{ object.physical_address|urlencode }}" target="_blank" class="btn btn-primary btn-sm">
+                    <i class="mdi mdi-map-marker"></i> Map
+                  </a>
+                </div>
+                <span>{{ object.physical_address|linebreaksbr }}</span>
+              {% else %}
+                {{ ''|placeholder }}
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Shipping Address</th>
+            <td>{{ object.shipping_address|linebreaksbr|placeholder }}</td>
+          </tr>
+          <tr>
+            <th scope="row">GPS Coordinates</th>
+            <td class="position-relative">
+              {% if object.latitude and object.longitude %}
+                <div class="position-absolute top-50 end-0 translate-middle-y noprint">
+                  <a href="{{ config.MAPS_URL }}{{ object.latitude }},{{ object.longitude }}" target="_blank" class="btn btn-primary btn-sm">
+                    <i class="mdi mdi-map-marker"></i> Map It
+                  </a>
+                </div>
+                <span>{{ object.latitude }}, {{ object.longitude }}</span>
+              {% else %}
+                {{ ''|placeholder }}
+              {% endif %}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    {% include 'inc/panels/custom_fields.html' %}
+    {% include 'inc/panels/tags.html' %}
+    {% include 'inc/panels/comments.html' %}
+    {% plugin_left_page object %}
+    </div>
+    <div class="col col-md-6">
+      {% include 'inc/panels/related_objects.html' with filter_name='site_id' %}
+      {% include 'inc/panels/contacts.html' %}
+      <div class="card">
+        <h5 class="card-header">Locations</h5>
+        <div class='card-body'>
+          {% if locations %}
+            <table class="table table-hover">
+              <tr>
+                <th>Location</th>
+                <th>Racks</th>
+                <th>Devices</th>
+                <th></th>
+              </tr>
+              {% for location in locations %}
+                <tr>
+                  <td>
+                    {% for i in location.level|as_range %}<i class="mdi mdi-circle-small"></i>{% endfor %}
+                    {{ location|linkify }}
+                  </td>
+                  <td>
+                    <a href="{% url 'dcim:rack_list' %}?location_id={{ location.pk }}">{{ location.rack_count }}</a>
+                  </td>
+                  <td>
+                    <a href="{% url 'dcim:device_list' %}?location_id={{ location.pk }}">{{ location.device_count }}</a>
+                  </td>
+                  <td class="text-end noprint">
+                    <a href="{% url 'dcim:rack_elevation_list' %}?location_id={{ location.pk }}" class="btn btn-sm btn-primary" title="View Elevations">
+                      <i class="mdi mdi-server"></i>
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </table>
+          {% else %}
+            <span class="text-muted">None</span>
+          {% endif %}
+        </div>
+        {% if perms.dcim.add_location %}
+          <div class="card-footer text-end noprint">
+            <a href="{% url 'dcim:location_add' %}?site={{ object.pk }}&return_url={{ object.get_absolute_url }}" class="btn btn-primary btn-sm">
+              <i class="mdi mdi-plus-thick" aria-hidden="true"></i> Add a location
+            </a>
+          </div>
+        {% endif %}
+      </div>
+      {% include 'inc/panels/image_attachments.html' %}
+      {% plugin_right_page object %}
+	</div>
+</div>
+<div class="row">
+  <div class="col col-md-12">
+    {% include 'dcim/inc/nonracked_devices.html' %}
+    {% plugin_full_width_page object %}
+  </div>
+</div>
+{% endblock %}
