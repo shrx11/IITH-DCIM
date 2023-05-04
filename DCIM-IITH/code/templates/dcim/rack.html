@@ -1,0 +1,313 @@
+{% extends 'generic/object.html' %}
+{% load buttons %}
+{% load helpers %}
+{% load static %}
+{% load plugins %}
+
+{% block title %}Rack {{ object }}{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  <li class="breadcrumb-item"><a href="{% url 'dcim:rack_list' %}?site_id={{ object.site.pk }}">{{ object.site }}</a></li>
+  {% if object.location %}
+    {% for location in object.location.get_ancestors %}
+      <li class="breadcrumb-item"><a href="{% url 'dcim:rack_list' %}?location_id={{ location.pk }}">{{ location }}</a></li>
+    {% endfor %}
+    <li class="breadcrumb-item"><a href="{% url 'dcim:rack_list' %}?location_id={{ object.location.pk }}">{{ object.location }}</a></li>
+  {% endif %}
+{% endblock %}
+
+{% block extra_controls %}
+  <a {% if prev_rack %}href="{% url 'dcim:rack' pk=prev_rack.pk %}{% endif %}" class="btn btn-sm btn-primary{% if not prev_rack %} disabled{% endif %}">
+    <i class="mdi mdi-chevron-left" aria-hidden="true"></i> Previous
+  </a>
+  <a {% if next_rack %}href="{% url 'dcim:rack' pk=next_rack.pk %}{% endif %}" class="btn btn-sm btn-primary{% if not next_rack %} disabled{% endif %}">
+    <i class="mdi mdi-chevron-right" aria-hidden="true"></i> Next
+  </a>
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+	  <div class="col col-12 col-xl-5">
+        <div class="card">
+            <h5 class="card-header">
+                Rack
+            </h5>
+            <div class="card-body">
+                <table class="table table-hover attr-table">
+                    <tr>
+                        <th scope="row">Site</th>
+                        <td>
+                            {% if object.site.region %}
+                                {{ object.site.region|linkify }} /
+                            {% endif %}
+                            {{ object.site|linkify }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Location</th>
+                        <td>
+                            {% if object.location %}
+                                {% for location in object.location.get_ancestors %}
+                                    {{ location|linkify }} /
+                                {% endfor %}
+                                {{ object.location|linkify }}
+                            {% else %}
+                                {{ ''|placeholder }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Facility ID</th>
+                        <td>{{ object.facility_id|placeholder }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Tenant</th>
+                        <td>
+                            {% if object.tenant.group %}
+                                {{ object.tenant.group|linkify }} /
+                            {% endif %}
+                            {{ object.tenant|linkify|placeholder }}
+                        </td>
+                    </tr>
+                     <tr>
+                        <th scope="row">Status</th>
+                        <td>{% badge object.get_status_display bg_color=object.get_status_color %}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Role</th>
+                        <td>{{ object.role|linkify|placeholder }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>{{ object.description|placeholder }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Serial Number</th>
+                        <td class="font-monospace">{{ object.serial|placeholder }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Asset Tag</th>
+                        <td class="font-monospace">{{ object.asset_tag|placeholder }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Devices</th>
+                        <td>
+                            <a href="{% url 'dcim:device_list' %}?rack_id={{ object.id }}">{{ device_count }}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Space Utilization</th>
+                        <td>{% utilization_graph object.get_utilization %}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Power Utilization</th>
+                        <td>{% utilization_graph object.get_power_utilization %}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <h5 class="card-header">Dimensions</h5>
+            <div class="card-body">
+                <table class="table table-hover attr-table">
+                    <tr>
+                        <th scope="row">Type</th>
+                        <td>
+                            {% if object.type %}
+                                {{ object.get_type_display }}
+                            {% else %}
+                                {{ ''|placeholder }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Width</th>
+                        <td>{{ object.get_width_display }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Height</th>
+                        <td>{{ object.u_height }}U ({% if object.desc_units %}descending{% else %}ascending{% endif %})</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Outer Width</th>
+                        <td>
+                            {% if object.outer_width %}
+                                {{ object.outer_width }} {{ object.get_outer_unit_display }}
+                            {% else %}
+                                {{ ''|placeholder }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Outer Depth</th>
+                        <td>
+                            {% if object.outer_depth %}
+                                {{ object.outer_depth }} {{ object.get_outer_unit_display }}
+                            {% else %}
+                                {{ ''|placeholder }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Mounting Depth</th>
+                        <td>
+                            {% if object.mounting_depth %}
+                                {{ object.mounting_depth }} Millimeters
+                            {% else %}
+                                {{ ''|placeholder }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Rack Weight</th>
+                        <td>
+                            {% if object.weight %}
+                                {{ object.weight|floatformat }} {{ object.get_weight_unit_display }}
+                            {% else %}
+                                {{ ''|placeholder }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Maximum Weight</th>
+                        <td>
+                            {% if object.max_weight %}
+                                {{ object.max_weight }} {{ object.get_weight_unit_display }}
+                            {% else %}
+                                {{ ''|placeholder }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Total Weight</th>
+                        <td>
+                          {{ object.total_weight|floatformat }} Kilograms
+                          ({{ object.total_weight|kg_to_pounds|floatformat }} Pounds)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        {% include 'inc/panels/custom_fields.html' %}
+        {% include 'inc/panels/tags.html' %}
+        {% include 'inc/panels/comments.html' %}
+        {% if power_feeds %}
+            <div class="card">
+                <h5 class="card-header">
+                    Power Feeds
+                </h5>
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <th>Panel</th>
+                            <th>Feed</th>
+                            <th>Status</th>
+                            <th>Type</th>
+                            <th>Utilization</th>
+                        </tr>
+                        {% for powerfeed in power_feeds %}
+                            <tr>
+                                <td>{{ powerfeed.power_panel|linkify }}</td>
+                                <td>{{ powerfeed|linkify }}</td>
+                                <td>{% badge powerfeed.get_status_display bg_color=powerfeed.get_status_color %}</td>
+                                <td>{% badge powerfeed.get_type_display bg_color=powerfeed.get_type_color %}</td>
+                                {% with power_port=powerfeed.connected_endpoints.0 %}
+                                    {% if power_port %}
+                                        <td>{% utilization_graph power_port.get_power_draw.allocated|percentage:powerfeed.available_power %}</td>
+                                    {% else %}
+                                        <td class="text-muted">N/A</td>
+                                    {% endif %}
+                                {% endwith %}
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        {% endif %}
+
+        {% include 'inc/panels/image_attachments.html' %}
+        <div class="card">
+            <h5 class="card-header">
+                Reservations
+            </h5>
+            <div class="card-body">
+            {% if reservations %}
+                <table class="table table-hover">
+                    <tr>
+                        <th>Units</th>
+                        <th>Tenant</th>
+                        <th>Description</th>
+                        <th></th>
+                    </tr>
+                    {% for resv in reservations %}
+                        <tr>
+                            <td>{{ resv|linkify:"unit_list" }}</td>
+                            <td>{{ resv.tenant|linkify|placeholder }}</td>
+                            <td>
+                                {{ resv.description }}<br />
+                                <small>{{ resv.user }} &middot; {{ resv.created|annotated_date }}</small>
+                            </td>
+                            <td class="text-end noprint">
+                                {% if perms.dcim.change_rackreservation %}
+                                    <a href="{% url 'dcim:rackreservation_edit' pk=resv.pk %}?return_url={{ object.get_absolute_url }}" class="btn btn-warning btn-sm" title="Edit Reservation">
+                                        <i class="mdi mdi-pencil" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+                                {% if perms.dcim.delete_rackreservation %}
+                                    <a href="{% url 'dcim:rackreservation_delete' pk=resv.pk %}?return_url={{ object.get_absolute_url }}" class="btn btn-danger btn-sm" title="Delete Reservation">
+                                        <i class="mdi mdi-trash-can-outline" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <div class="text-muted">None</div>
+            {% endif %}
+            </div>
+            {% if perms.dcim.add_rackreservation %}
+                <div class="card-footer text-end noprint">
+                    <a href="{% url 'dcim:rackreservation_add' %}?rack={{ object.pk }}&return_url={{ object.get_absolute_url }}" class="btn btn-primary btn-sm">
+                        <i class="mdi mdi-plus-thick" aria-hidden="true"></i>
+                        Add a Reservation
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+        {% plugin_left_page object %}
+	  </div>
+    <div class="col col-12 col-xl-7">
+      <div class="text-end mb-4">
+        <select class="btn btn-sm btn-outline-dark rack-view">
+          <option value="images-and-labels" selected="selected">Images and Labels</option>
+          <option value="images-only">Images only</option>
+          <option value="labels-only">Labels only</option>
+        </select>
+      </div>
+        <div class="row" style="margin-bottom: 20px">
+            <div class="col col-md-6 col-sm-6 col-xs-12 text-center">
+              <div style="margin-left: 30px">
+                <h4>Front</h4>
+                {% include 'dcim/inc/rack_elevation.html' with face='front' extra_params=svg_extra %}
+              </div>
+            </div>
+            <div class="col col-md-6 col-sm-6 col-xs-12 text-center">
+              <div style="margin-left: 30px">
+                <h4>Rear</h4>
+                {% include 'dcim/inc/rack_elevation.html' with face='rear' extra_params=svg_extra %}
+              </div>
+            </div>
+        </div>
+        {% include 'dcim/inc/nonracked_devices.html' %}
+        {% include 'inc/panels/contacts.html' %}
+        {% plugin_right_page object %}
+    </div>
+  </div>
+  <div class="row">
+      <div class="col col-md-12">
+          {% plugin_full_width_page object %}
+      </div>
+  </div>
+{% endblock %}

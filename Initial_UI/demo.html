@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lab Access Request</title>
+	<!-- Include Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container mt-5">
+		<div class="card">
+			<div class="card-body">
+				<h4 class="card-title">Lab Access Request</h4>
+				<p class="card-text">Enter your name and select the contacts below to request access to the lab.</p>
+				<form>
+					<div class="form-group">
+						<label for="nameInput">Name:</label>
+						<input type="text" class="form-control" id="nameInput" required>
+
+						<label for="mailidInput">User mail ID:</label>
+						<input type="text" class="form-control" id="mailidInput" required>
+
+						<label for="labInput">Lab:</label>
+						<input type="text" class="form-control" id="labInput" required>
+
+						<label for="deviceInput">Device:</label>
+						<input type="text" class="form-control" id="deviceInput" required>
+
+						<label for="contactmailInput">Contacts:</label>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="jyothiv@cse.iith.ac.in" id="contact1">
+							<label class="form-check-label" for="contact1">
+								Jyoti V
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="cs18resch01001@iith.ac.in" id="contact2">
+							<label class="form-check-label" for="contact2">
+								Maruthi Seshidhar Inukonda
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="contact3@example.com" id="contact3">
+							<label class="form-check-label" for="contact3">
+								Contact 3
+							</label>
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary">Request Access</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- Include Bootstrap JS and jQuery -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+	<script>
+		$("form").submit(function(event) {
+			event.preventDefault();
+			const userEmail = $("#mailidInput").val(); // replace this with the client's email address
+			const userRoll = userEmail.split("@")[0];
+			const userName = $("#nameInput").val();
+			const labName = $("#labInput").val();
+			const deviceName = $("#deviceInput").val();
+			let recipients = "";
+			$("input:checked").each(function () {
+				recipients += $(this).val() + ",";
+			});
+			recipients = recipients.slice(0, -1); // remove the last comma
+
+			const subject = encodeURIComponent("Request for Data Center Lab");
+			const body = encodeURIComponent(`Dear authority,\n  I, ${userName} would like to request access to the device ${deviceName} in the lab ${labName} for academic purposes. Please let me know the next steps and help me to get access.\n\nThanks and regards,\n${userName}\n${userRoll}`);
+
+			// const gmailUrl = `https://mail.google.com/mail/u/0/#inbox?compose=new&su=${subject}&body=${body}`;
+			// window.open(gmailUrl);
+			window.location.href = `https://mail.google.com/mail/u/0/?view=cm&to=${recipients}&su=${subject}&body=${body}&bcc=&cc=&fs=1&tf=1&`;
+		});
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

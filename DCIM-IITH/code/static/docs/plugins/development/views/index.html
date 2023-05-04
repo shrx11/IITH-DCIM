@@ -1,0 +1,6168 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+  
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://docs.netbox.dev/plugins/development/views/">
+      
+      
+        <link rel="prev" href="../models/">
+      
+      
+        <link rel="next" href="../navigation/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.4">
+    
+  
+  
+    <meta name="robots" content="noindex">
+  
+
+    
+      
+        <title>Views - NetBox Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.240905d7.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.a0c5b2b5.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../../extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#views" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="NetBox Documentation" class="md-header__button md-logo" aria-label="NetBox Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NetBox Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Views
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to Dark Mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to Dark Mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+            </label>
+          
+        
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to Light Mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to Light Mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/netbox-community/netbox" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    netbox-community/netbox
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="NetBox Documentation" class="md-nav__button md-logo" aria-label="NetBox Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    NetBox Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/netbox-community/netbox" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    netbox-community/netbox
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Features
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Features
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../features/facilities/" class="md-nav__link">
+        Facilities
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../features/devices-cabling/" class="md-nav__link">
+        Devices & Cabling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../features/power-tracking/" class="md-nav__link">
+        Power Tracking
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../features/ipam/" class="md-nav__link">
+        IPAM
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../features/vlan-management/" class="md-nav__link">
+        VLAN Management
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../features/l2vpn-overlay/" class="md-nav__link">
+        L2VPN & Overlay
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../features/circuits/" class="md-nav__link">
+        Circuits
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../features/wireless/" class="md-nav__link">
+        Wireless
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../features/virtualization/" class="md-nav__link">
+        Virtualization
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../features/tenancy/" class="md-nav__link">
+        Tenancy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../features/contacts/" class="md-nav__link">
+        Contacts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../features/search/" class="md-nav__link">
+        Search
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../features/context-data/" class="md-nav__link">
+        Context Data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../features/change-logging/" class="md-nav__link">
+        Change Logging
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../features/journaling/" class="md-nav__link">
+        Journaling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../features/authentication-permissions/" class="md-nav__link">
+        Auth & Permissions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../features/api-integration/" class="md-nav__link">
+        API & Integration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../features/customization/" class="md-nav__link">
+        Customization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Installation & Upgrade
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Installation & Upgrade
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/" class="md-nav__link">
+        Installing NetBox
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/1-postgresql/" class="md-nav__link">
+        1. PostgreSQL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/2-redis/" class="md-nav__link">
+        2. Redis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/3-netbox/" class="md-nav__link">
+        3. NetBox
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/4-gunicorn/" class="md-nav__link">
+        4. Gunicorn
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/5-http-server/" class="md-nav__link">
+        5. HTTP Server
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/6-ldap/" class="md-nav__link">
+        6. LDAP (Optional)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/upgrading/" class="md-nav__link">
+        Upgrading NetBox
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Getting Started
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/planning/" class="md-nav__link">
+        Planning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/populating-data/" class="md-nav__link">
+        Populating Data
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Configuration
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Configuration
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/" class="md-nav__link">
+        Configuring NetBox
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/required-parameters/" class="md-nav__link">
+        Required Parameters
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/system/" class="md-nav__link">
+        System
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/security/" class="md-nav__link">
+        Security
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/remote-authentication/" class="md-nav__link">
+        Remote Authentication
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/data-validation/" class="md-nav__link">
+        Data & Validation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/default-values/" class="md-nav__link">
+        Default Values
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/error-reporting/" class="md-nav__link">
+        Error Reporting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/plugins/" class="md-nav__link">
+        Plugins
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/napalm/" class="md-nav__link">
+        NAPALM
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/date-time/" class="md-nav__link">
+        Date & Time
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/miscellaneous/" class="md-nav__link">
+        Miscellaneous
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/development/" class="md-nav__link">
+        Development
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          Customization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Customization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../customization/custom-fields/" class="md-nav__link">
+        Custom Fields
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../customization/custom-links/" class="md-nav__link">
+        Custom Links
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../customization/custom-validation/" class="md-nav__link">
+        Custom Validation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../customization/export-templates/" class="md-nav__link">
+        Export Templates
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../customization/reports/" class="md-nav__link">
+        Reports
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../customization/custom-scripts/" class="md-nav__link">
+        Custom Scripts
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          Integrations
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Integrations
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../integrations/rest-api/" class="md-nav__link">
+        REST API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../integrations/graphql-api/" class="md-nav__link">
+        GraphQL API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../integrations/webhooks/" class="md-nav__link">
+        Webhooks
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../integrations/napalm/" class="md-nav__link">
+        NAPALM
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../integrations/prometheus-metrics/" class="md-nav__link">
+        Prometheus Metrics
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+          Plugins
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Plugins
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        Using Plugins
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_2" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_2" id="__nav_8_2_label" tabindex="0">
+          Developing Plugins
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_2_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_8_2">
+          <span class="md-nav__icon md-icon"></span>
+          Developing Plugins
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../models/" class="md-nav__link">
+        Models
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Views
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Views
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#writing-views" class="md-nav__link">
+    Writing Views
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing Views">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#url-registration" class="md-nav__link">
+    URL Registration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#view-classes" class="md-nav__link">
+    View Classes
+  </a>
+  
+    <nav class="md-nav" aria-label="View Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-usage" class="md-nav__link">
+    Example Usage
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-views" class="md-nav__link">
+    Object Views
+  </a>
+  
+    <nav class="md-nav" aria-label="Object Views">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.base.BaseObjectView" class="md-nav__link">
+    BaseObjectView
+  </a>
+  
+    <nav class="md-nav" aria-label="BaseObjectView">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.base.BaseObjectView.get_queryset" class="md-nav__link">
+    get_queryset()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.base.BaseObjectView.get_object" class="md-nav__link">
+    get_object()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.base.BaseObjectView.get_extra_context" class="md-nav__link">
+    get_extra_context()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.object_views.ObjectView" class="md-nav__link">
+    ObjectView
+  </a>
+  
+    <nav class="md-nav" aria-label="ObjectView">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.object_views.ObjectView.get_template_name" class="md-nav__link">
+    get_template_name()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.object_views.ObjectEditView" class="md-nav__link">
+    ObjectEditView
+  </a>
+  
+    <nav class="md-nav" aria-label="ObjectEditView">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.object_views.ObjectEditView.alter_object" class="md-nav__link">
+    alter_object()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.object_views.ObjectDeleteView" class="md-nav__link">
+    ObjectDeleteView
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.object_views.ObjectChildrenView" class="md-nav__link">
+    ObjectChildrenView
+  </a>
+  
+    <nav class="md-nav" aria-label="ObjectChildrenView">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.object_views.ObjectChildrenView.get_children" class="md-nav__link">
+    get_children()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.object_views.ObjectChildrenView.prep_table_data" class="md-nav__link">
+    prep_table_data()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-object-views" class="md-nav__link">
+    Multi-Object Views
+  </a>
+  
+    <nav class="md-nav" aria-label="Multi-Object Views">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.base.BaseMultiObjectView" class="md-nav__link">
+    BaseMultiObjectView
+  </a>
+  
+    <nav class="md-nav" aria-label="BaseMultiObjectView">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.base.BaseMultiObjectView.get_queryset" class="md-nav__link">
+    get_queryset()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.base.BaseMultiObjectView.get_extra_context" class="md-nav__link">
+    get_extra_context()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.bulk_views.ObjectListView" class="md-nav__link">
+    ObjectListView
+  </a>
+  
+    <nav class="md-nav" aria-label="ObjectListView">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.bulk_views.ObjectListView.export_table" class="md-nav__link">
+    export_table()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.bulk_views.ObjectListView.export_template" class="md-nav__link">
+    export_template()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.bulk_views.BulkImportView" class="md-nav__link">
+    BulkImportView
+  </a>
+  
+    <nav class="md-nav" aria-label="BulkImportView">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.bulk_views.BulkImportView.save_object" class="md-nav__link">
+    save_object()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.bulk_views.BulkEditView" class="md-nav__link">
+    BulkEditView
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.bulk_views.BulkDeleteView" class="md-nav__link">
+    BulkDeleteView
+  </a>
+  
+    <nav class="md-nav" aria-label="BulkDeleteView">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.bulk_views.BulkDeleteView.get_form" class="md-nav__link">
+    get_form()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feature-views" class="md-nav__link">
+    Feature Views
+  </a>
+  
+    <nav class="md-nav" aria-label="Feature Views">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.feature_views.ObjectChangeLogView" class="md-nav__link">
+    ObjectChangeLogView
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.feature_views.ObjectJournalView" class="md-nav__link">
+    ObjectJournalView
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extending-core-views" class="md-nav__link">
+    Extending Core Views
+  </a>
+  
+    <nav class="md-nav" aria-label="Extending Core Views">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#additional-tabs" class="md-nav__link">
+    Additional Tabs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilities.views.register_model_view" class="md-nav__link">
+    register_model_view()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilities.views.ViewTab" class="md-nav__link">
+    ViewTab
+  </a>
+  
+    <nav class="md-nav" aria-label="ViewTab">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#utilities.views.ViewTab.render" class="md-nav__link">
+    render()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extra-template-content" class="md-nav__link">
+    Extra Template Content
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../navigation/" class="md-nav__link">
+        Navigation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../templates/" class="md-nav__link">
+        Templates
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tables/" class="md-nav__link">
+        Tables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../forms/" class="md-nav__link">
+        Forms
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../filtersets/" class="md-nav__link">
+        Filters & Filter Sets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../search/" class="md-nav__link">
+        Search
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rest-api/" class="md-nav__link">
+        REST API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graphql-api/" class="md-nav__link">
+        GraphQL API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../background-tasks/" class="md-nav__link">
+        Background Tasks
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../staged-changes/" class="md-nav__link">
+        Staged Changes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exceptions/" class="md-nav__link">
+        Exceptions
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+          Administration
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          Administration
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_1" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9_1" id="__nav_9_1_label" tabindex="0">
+          Authentication
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_9_1">
+          <span class="md-nav__icon md-icon"></span>
+          Authentication
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../administration/authentication/overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../administration/authentication/microsoft-azure-ad/" class="md-nav__link">
+        Microsoft Azure AD
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../administration/authentication/okta/" class="md-nav__link">
+        Okta
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../administration/permissions/" class="md-nav__link">
+        Permissions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../administration/error-reporting/" class="md-nav__link">
+        Error Reporting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../administration/housekeeping/" class="md-nav__link">
+        Housekeeping
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../administration/replicating-netbox/" class="md-nav__link">
+        Replicating NetBox
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../administration/netbox-shell/" class="md-nav__link">
+        NetBox Shell
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+          Data Model
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_10">
+          <span class="md-nav__icon md-icon"></span>
+          Data Model
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_1" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_10_1" id="__nav_10_1_label" tabindex="0">
+          Circuits
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_10_1">
+          <span class="md-nav__icon md-icon"></span>
+          Circuits
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/circuits/circuit/" class="md-nav__link">
+        Circuit
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/circuits/circuittermination/" class="md-nav__link">
+        Circuit Termination
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/circuits/circuittype/" class="md-nav__link">
+        Circuit Type
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/circuits/provider/" class="md-nav__link">
+        Provider
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/circuits/providernetwork/" class="md-nav__link">
+        Provider Network
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_10_2" id="__nav_10_2_label" tabindex="0">
+          DCIM
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_10_2">
+          <span class="md-nav__icon md-icon"></span>
+          DCIM
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/cable/" class="md-nav__link">
+        Cable
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/consoleport/" class="md-nav__link">
+        ConsolePort
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/consoleporttemplate/" class="md-nav__link">
+        ConsolePortTemplate
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/consoleserverport/" class="md-nav__link">
+        ConsoleServerPort
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/consoleserverporttemplate/" class="md-nav__link">
+        ConsoleServerPortTemplate
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/device/" class="md-nav__link">
+        Device
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/devicebay/" class="md-nav__link">
+        DeviceBay
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/devicebaytemplate/" class="md-nav__link">
+        DeviceBayTemplate
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/devicerole/" class="md-nav__link">
+        DeviceRole
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/devicetype/" class="md-nav__link">
+        DeviceType
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/frontport/" class="md-nav__link">
+        FrontPort
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/frontporttemplate/" class="md-nav__link">
+        FrontPortTemplate
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/interface/" class="md-nav__link">
+        Interface
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/interfacetemplate/" class="md-nav__link">
+        InterfaceTemplate
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/inventoryitem/" class="md-nav__link">
+        InventoryItem
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/inventoryitemrole/" class="md-nav__link">
+        InventoryItemRole
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/inventoryitemtemplate/" class="md-nav__link">
+        InventoryItemTemplate
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/location/" class="md-nav__link">
+        Location
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/manufacturer/" class="md-nav__link">
+        Manufacturer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/module/" class="md-nav__link">
+        Module
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/modulebay/" class="md-nav__link">
+        ModuleBay
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/modulebaytemplate/" class="md-nav__link">
+        ModuleBayTemplate
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/moduletype/" class="md-nav__link">
+        ModuleType
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/platform/" class="md-nav__link">
+        Platform
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/powerfeed/" class="md-nav__link">
+        PowerFeed
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/poweroutlet/" class="md-nav__link">
+        PowerOutlet
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/poweroutlettemplate/" class="md-nav__link">
+        PowerOutletTemplate
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/powerpanel/" class="md-nav__link">
+        PowerPanel
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/powerport/" class="md-nav__link">
+        PowerPort
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/powerporttemplate/" class="md-nav__link">
+        PowerPortTemplate
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/rack/" class="md-nav__link">
+        Rack
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/rackreservation/" class="md-nav__link">
+        RackReservation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/rackrole/" class="md-nav__link">
+        RackRole
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/rearport/" class="md-nav__link">
+        RearPort
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/rearporttemplate/" class="md-nav__link">
+        RearPortTemplate
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/region/" class="md-nav__link">
+        Region
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/site/" class="md-nav__link">
+        Site
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/sitegroup/" class="md-nav__link">
+        SiteGroup
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/virtualchassis/" class="md-nav__link">
+        VirtualChassis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/dcim/virtualdevicecontext/" class="md-nav__link">
+        VirtualDeviceContext
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_10_3" id="__nav_10_3_label" tabindex="0">
+          Extras
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_10_3">
+          <span class="md-nav__icon md-icon"></span>
+          Extras
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/extras/branch/" class="md-nav__link">
+        Branch
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/extras/configcontext/" class="md-nav__link">
+        ConfigContext
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/extras/customfield/" class="md-nav__link">
+        CustomField
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/extras/customlink/" class="md-nav__link">
+        CustomLink
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/extras/exporttemplate/" class="md-nav__link">
+        ExportTemplate
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/extras/imageattachment/" class="md-nav__link">
+        ImageAttachment
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/extras/journalentry/" class="md-nav__link">
+        JournalEntry
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/extras/savedfilter/" class="md-nav__link">
+        SavedFilter
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/extras/stagedchange/" class="md-nav__link">
+        StagedChange
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/extras/tag/" class="md-nav__link">
+        Tag
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/extras/webhook/" class="md-nav__link">
+        Webhook
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_10_4" id="__nav_10_4_label" tabindex="0">
+          IPAM
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_10_4">
+          <span class="md-nav__icon md-icon"></span>
+          IPAM
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/ipam/asn/" class="md-nav__link">
+        ASN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/ipam/aggregate/" class="md-nav__link">
+        Aggregate
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/ipam/fhrpgroup/" class="md-nav__link">
+        FHRPGroup
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/ipam/fhrpgroupassignment/" class="md-nav__link">
+        FHRPGroupAssignment
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/ipam/ipaddress/" class="md-nav__link">
+        IPAddress
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/ipam/iprange/" class="md-nav__link">
+        IPRange
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/ipam/l2vpn/" class="md-nav__link">
+        L2VPN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/ipam/l2vpntermination/" class="md-nav__link">
+        L2VPNTermination
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/ipam/prefix/" class="md-nav__link">
+        Prefix
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/ipam/rir/" class="md-nav__link">
+        RIR
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/ipam/role/" class="md-nav__link">
+        Role
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/ipam/routetarget/" class="md-nav__link">
+        RouteTarget
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/ipam/service/" class="md-nav__link">
+        Service
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/ipam/servicetemplate/" class="md-nav__link">
+        ServiceTemplate
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/ipam/vlan/" class="md-nav__link">
+        VLAN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/ipam/vlangroup/" class="md-nav__link">
+        VLANGroup
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/ipam/vrf/" class="md-nav__link">
+        VRF
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_10_5" id="__nav_10_5_label" tabindex="0">
+          Tenancy
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_10_5">
+          <span class="md-nav__icon md-icon"></span>
+          Tenancy
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/tenancy/contact/" class="md-nav__link">
+        Contact
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/tenancy/contactgroup/" class="md-nav__link">
+        ContactGroup
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/tenancy/contactrole/" class="md-nav__link">
+        ContactRole
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/tenancy/tenant/" class="md-nav__link">
+        Tenant
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/tenancy/tenantgroup/" class="md-nav__link">
+        TenantGroup
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_10_6" id="__nav_10_6_label" tabindex="0">
+          Virtualization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_10_6">
+          <span class="md-nav__icon md-icon"></span>
+          Virtualization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/virtualization/cluster/" class="md-nav__link">
+        Cluster
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/virtualization/clustergroup/" class="md-nav__link">
+        ClusterGroup
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/virtualization/clustertype/" class="md-nav__link">
+        ClusterType
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/virtualization/vminterface/" class="md-nav__link">
+        VMInterface
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/virtualization/virtualmachine/" class="md-nav__link">
+        VirtualMachine
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_7" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_10_7" id="__nav_10_7_label" tabindex="0">
+          Wireless
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_10_7">
+          <span class="md-nav__icon md-icon"></span>
+          Wireless
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/wireless/wirelesslan/" class="md-nav__link">
+        WirelessLAN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/wireless/wirelesslangroup/" class="md-nav__link">
+        WirelessLANGroup
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../models/wireless/wirelesslink/" class="md-nav__link">
+        WirelessLink
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+          Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_11">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/filtering/" class="md-nav__link">
+        Filtering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/conditions/" class="md-nav__link">
+        Conditions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/markdown/" class="md-nav__link">
+        Markdown
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+          Development
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_12">
+          <span class="md-nav__icon md-icon"></span>
+          Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/getting-started/" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/style-guide/" class="md-nav__link">
+        Style Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/models/" class="md-nav__link">
+        Models
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/adding-models/" class="md-nav__link">
+        Adding Models
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/extending-models/" class="md-nav__link">
+        Extending Models
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/signals/" class="md-nav__link">
+        Signals
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/search/" class="md-nav__link">
+        Search
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/application-registry/" class="md-nav__link">
+        Application Registry
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/user-preferences/" class="md-nav__link">
+        User Preferences
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/web-ui/" class="md-nav__link">
+        Web UI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/release-checklist/" class="md-nav__link">
+        Release Checklist
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/git-cheat-sheet/" class="md-nav__link">
+        git Cheat Sheet
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+          Release Notes
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_13">
+          <span class="md-nav__icon md-icon"></span>
+          Release Notes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release-notes/" class="md-nav__link">
+        Summary
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release-notes/version-3.4/" class="md-nav__link">
+        Version 3.4
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release-notes/version-3.3/" class="md-nav__link">
+        Version 3.3
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release-notes/version-3.2/" class="md-nav__link">
+        Version 3.2
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release-notes/version-3.1/" class="md-nav__link">
+        Version 3.1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release-notes/version-3.0/" class="md-nav__link">
+        Version 3.0
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release-notes/version-2.11/" class="md-nav__link">
+        Version 2.11
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release-notes/version-2.10/" class="md-nav__link">
+        Version 2.10
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release-notes/version-2.9/" class="md-nav__link">
+        Version 2.9
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release-notes/version-2.8/" class="md-nav__link">
+        Version 2.8
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release-notes/version-2.7/" class="md-nav__link">
+        Version 2.7
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release-notes/version-2.6/" class="md-nav__link">
+        Version 2.6
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release-notes/version-2.5/" class="md-nav__link">
+        Version 2.5
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release-notes/version-2.4/" class="md-nav__link">
+        Version 2.4
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release-notes/version-2.3/" class="md-nav__link">
+        Version 2.3
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release-notes/version-2.2/" class="md-nav__link">
+        Version 2.2
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release-notes/version-2.1/" class="md-nav__link">
+        Version 2.1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release-notes/version-2.0/" class="md-nav__link">
+        Version 2.0
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#writing-views" class="md-nav__link">
+    Writing Views
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing Views">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#url-registration" class="md-nav__link">
+    URL Registration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#view-classes" class="md-nav__link">
+    View Classes
+  </a>
+  
+    <nav class="md-nav" aria-label="View Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-usage" class="md-nav__link">
+    Example Usage
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-views" class="md-nav__link">
+    Object Views
+  </a>
+  
+    <nav class="md-nav" aria-label="Object Views">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.base.BaseObjectView" class="md-nav__link">
+    BaseObjectView
+  </a>
+  
+    <nav class="md-nav" aria-label="BaseObjectView">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.base.BaseObjectView.get_queryset" class="md-nav__link">
+    get_queryset()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.base.BaseObjectView.get_object" class="md-nav__link">
+    get_object()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.base.BaseObjectView.get_extra_context" class="md-nav__link">
+    get_extra_context()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.object_views.ObjectView" class="md-nav__link">
+    ObjectView
+  </a>
+  
+    <nav class="md-nav" aria-label="ObjectView">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.object_views.ObjectView.get_template_name" class="md-nav__link">
+    get_template_name()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.object_views.ObjectEditView" class="md-nav__link">
+    ObjectEditView
+  </a>
+  
+    <nav class="md-nav" aria-label="ObjectEditView">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.object_views.ObjectEditView.alter_object" class="md-nav__link">
+    alter_object()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.object_views.ObjectDeleteView" class="md-nav__link">
+    ObjectDeleteView
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.object_views.ObjectChildrenView" class="md-nav__link">
+    ObjectChildrenView
+  </a>
+  
+    <nav class="md-nav" aria-label="ObjectChildrenView">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.object_views.ObjectChildrenView.get_children" class="md-nav__link">
+    get_children()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.object_views.ObjectChildrenView.prep_table_data" class="md-nav__link">
+    prep_table_data()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-object-views" class="md-nav__link">
+    Multi-Object Views
+  </a>
+  
+    <nav class="md-nav" aria-label="Multi-Object Views">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.base.BaseMultiObjectView" class="md-nav__link">
+    BaseMultiObjectView
+  </a>
+  
+    <nav class="md-nav" aria-label="BaseMultiObjectView">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.base.BaseMultiObjectView.get_queryset" class="md-nav__link">
+    get_queryset()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.base.BaseMultiObjectView.get_extra_context" class="md-nav__link">
+    get_extra_context()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.bulk_views.ObjectListView" class="md-nav__link">
+    ObjectListView
+  </a>
+  
+    <nav class="md-nav" aria-label="ObjectListView">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.bulk_views.ObjectListView.export_table" class="md-nav__link">
+    export_table()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.bulk_views.ObjectListView.export_template" class="md-nav__link">
+    export_template()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.bulk_views.BulkImportView" class="md-nav__link">
+    BulkImportView
+  </a>
+  
+    <nav class="md-nav" aria-label="BulkImportView">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.bulk_views.BulkImportView.save_object" class="md-nav__link">
+    save_object()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.bulk_views.BulkEditView" class="md-nav__link">
+    BulkEditView
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.bulk_views.BulkDeleteView" class="md-nav__link">
+    BulkDeleteView
+  </a>
+  
+    <nav class="md-nav" aria-label="BulkDeleteView">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.bulk_views.BulkDeleteView.get_form" class="md-nav__link">
+    get_form()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feature-views" class="md-nav__link">
+    Feature Views
+  </a>
+  
+    <nav class="md-nav" aria-label="Feature Views">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.feature_views.ObjectChangeLogView" class="md-nav__link">
+    ObjectChangeLogView
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netbox.views.generic.feature_views.ObjectJournalView" class="md-nav__link">
+    ObjectJournalView
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extending-core-views" class="md-nav__link">
+    Extending Core Views
+  </a>
+  
+    <nav class="md-nav" aria-label="Extending Core Views">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#additional-tabs" class="md-nav__link">
+    Additional Tabs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilities.views.register_model_view" class="md-nav__link">
+    register_model_view()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilities.views.ViewTab" class="md-nav__link">
+    ViewTab
+  </a>
+  
+    <nav class="md-nav" aria-label="ViewTab">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#utilities.views.ViewTab.render" class="md-nav__link">
+    render()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extra-template-content" class="md-nav__link">
+    Extra Template Content
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="views">Views</h1>
+<h2 id="writing-views">Writing Views</h2>
+<p>If your plugin will provide its own page or pages within the NetBox web UI, you'll need to define views. A view is a piece of business logic which performs an action and/or renders a page when a request is made to a particular URL. HTML content is rendered using a <a href="../templates/">template</a>. Views are typically defined in <code>views.py</code>, and URL patterns in <code>urls.py</code>.</p>
+<p>As an example, let's write a view which displays a random animal and the sound it makes. We'll use Django's generic <code>View</code> class to minimize the amount of boilerplate code needed.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">django.views.generic</span> <span class="kn">import</span> <span class="n">View</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Animal</span>
+
+<span class="k">class</span> <span class="nc">RandomAnimalView</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Display a randomly-selected animal.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">animal</span> <span class="o">=</span> <span class="n">Animal</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;netbox_animal_sounds/animal.html&#39;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;animal&#39;</span><span class="p">:</span> <span class="n">animal</span><span class="p">,</span>
+        <span class="p">})</span>
+</code></pre></div>
+<p>This view retrieves a random Animal instance from the database and passes it as a context variable when rendering a template named <code>animal.html</code>. HTTP <code>GET</code> requests are handled by the view's <code>get()</code> method, and <code>POST</code> requests are handled by its <code>post()</code> method.</p>
+<p>Our example above is extremely simple, but views can do just about anything. They are generally where the core of your plugin's functionality will reside. Views also are not limited to returning HTML content: A view could return a CSV file or image, for instance. For more information on views, see the <a href="https://docs.djangoproject.com/en/stable/topics/class-based-views/">Django documentation</a>.</p>
+<h3 id="url-registration">URL Registration</h3>
+<p>To make the view accessible to users, we need to register a URL for it. We do this in <code>urls.py</code> by defining a <code>urlpatterns</code> variable containing a list of paths.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">views</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;random/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">RandomAnimalView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;random_animal&#39;</span><span class="p">),</span>
+<span class="p">]</span>
+</code></pre></div>
+<p>A URL pattern has three components:</p>
+<ul>
+<li><code>route</code> - The unique portion of the URL dedicated to this view</li>
+<li><code>view</code> - The view itself</li>
+<li><code>name</code> - A short name used to identify the URL path internally</li>
+</ul>
+<p>This makes our view accessible at the URL <code>/plugins/animal-sounds/random/</code>. (Remember, our <code>AnimalSoundsConfig</code> class sets our plugin's base URL to <code>animal-sounds</code>.) Viewing this URL should show the base NetBox template with our custom content inside it.</p>
+<h3 id="view-classes">View Classes</h3>
+<p>NetBox provides several generic view classes (documented below) to facilitate common operations, such as creating, viewing, modifying, and deleting objects. Plugins can subclass these views for their own use.</p>
+<table>
+<thead>
+<tr>
+<th>View Class</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ObjectView</code></td>
+<td>View a single object</td>
+</tr>
+<tr>
+<td><code>ObjectEditView</code></td>
+<td>Create or edit a single object</td>
+</tr>
+<tr>
+<td><code>ObjectDeleteView</code></td>
+<td>Delete a single object</td>
+</tr>
+<tr>
+<td><code>ObjectChildrenView</code></td>
+<td>A list of child objects within the context of a parent</td>
+</tr>
+<tr>
+<td><code>ObjectListView</code></td>
+<td>View a list of objects</td>
+</tr>
+<tr>
+<td><code>BulkImportView</code></td>
+<td>Import a set of new objects</td>
+</tr>
+<tr>
+<td><code>BulkEditView</code></td>
+<td>Edit multiple objects</td>
+</tr>
+<tr>
+<td><code>BulkDeleteView</code></td>
+<td>Delete multiple objects</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Please note that only the classes which appear in this documentation are currently supported. Although other classes may be present within the <code>views.generic</code> module, they are not yet supported for use by plugins.</p>
+</div>
+<h4 id="example-usage">Example Usage</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># views.py</span>
+<span class="kn">from</span> <span class="nn">netbox.views.generic</span> <span class="kn">import</span> <span class="n">ObjectEditView</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Thing</span>
+
+<span class="k">class</span> <span class="nc">ThingEditView</span><span class="p">(</span><span class="n">ObjectEditView</span><span class="p">):</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Thing</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;myplugin/thing.html&#39;</span>
+    <span class="o">...</span>
+</code></pre></div>
+<h2 id="object-views">Object Views</h2>
+<p>Below are the class definitions for NetBox's object views. These views handle CRUD actions for individual objects. The view, add/edit, and delete views each inherit from <code>BaseObjectView</code>, which is not intended to be used directly.</p>
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="netbox.views.generic.base.BaseObjectView" class="doc doc-heading">
+        <code>
+BaseObjectView            (<span title="utilities.views.ObjectPermissionRequiredMixin">ObjectPermissionRequiredMixin</span>, <span title="django.views.generic.base.View">View</span>)
+        </code>
+
+
+
+</h3>
+
+    <div class="doc doc-contents first">
+
+      <p>Base class for generic views which display or manipulate a single object.</p>
+
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>queryset</code></td>
+        <td></td>
+        <td><p>Django QuerySet from which the object(s) will be fetched</p></td>
+      </tr>
+      <tr>
+        <td><code>template_name</code></td>
+        <td></td>
+        <td><p>The name of the HTML template file to render</p></td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h4 id="netbox.views.generic.base.BaseObjectView.get_queryset" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Return the base queryset for the view. By default, this returns <code>self.queryset.all()</code>.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>request</code></td>
+        <td></td>
+        <td><p>The current request</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h4 id="netbox.views.generic.base.BaseObjectView.get_object" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Return the object being viewed or modified. The object is identified by an arbitrary set of keyword arguments
+gleaned from the URL, which are passed to <code>get_object_or_404()</code>. (Typically, only a primary key is needed.)</p>
+<p>If no matching object is found, return a 404 response.</p>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h4 id="netbox.views.generic.base.BaseObjectView.get_extra_context" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_extra_context</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">instance</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Return any additional context data to include when rendering the template.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>request</code></td>
+        <td></td>
+        <td><p>The current request</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>instance</code></td>
+        <td></td>
+        <td><p>The object being viewed</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="netbox.views.generic.object_views.ObjectView" class="doc doc-heading">
+        <code>
+ObjectView            (<a class="autorefs autorefs-internal" title="netbox.views.generic.base.BaseObjectView" href="#netbox.views.generic.base.BaseObjectView">BaseObjectView</a>)
+        </code>
+
+
+
+</h3>
+
+    <div class="doc doc-contents first">
+
+      <p>Retrieve a single object for display.</p>
+<p>Note: If <code>template_name</code> is not specified, it will be determined automatically based on the queryset model.</p>
+
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>tab</code></td>
+        <td></td>
+        <td><p>A ViewTab instance for the view</p></td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h4 id="netbox.views.generic.object_views.ObjectView.get_template_name" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_template_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Return self.template_name if defined. Otherwise, dynamically resolve the template name using the queryset
+model's <code>app_label</code> and <code>model_name</code>.</p>
+
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="netbox.views.generic.object_views.ObjectEditView" class="doc doc-heading">
+        <code>
+ObjectEditView            (<span title="utilities.views.GetReturnURLMixin">GetReturnURLMixin</span>, <a class="autorefs autorefs-internal" title="netbox.views.generic.base.BaseObjectView" href="#netbox.views.generic.base.BaseObjectView">BaseObjectView</a>)
+        </code>
+
+
+
+</h3>
+
+    <div class="doc doc-contents first">
+
+      <p>Create or edit a single object.</p>
+
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>form</code></td>
+        <td></td>
+        <td><p>The form used to create or edit the object</p></td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h4 id="netbox.views.generic.object_views.ObjectEditView.alter_object" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">alter_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">url_args</span><span class="p">,</span> <span class="n">url_kwargs</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Provides a hook for views to modify an object before it is processed. For example, a parent object can be
+defined given some parameter from the request URL.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>obj</code></td>
+        <td></td>
+        <td><p>The object being edited</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>request</code></td>
+        <td></td>
+        <td><p>The current request</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>url_args</code></td>
+        <td></td>
+        <td><p>URL path args</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>url_kwargs</code></td>
+        <td></td>
+        <td><p>URL path kwargs</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="netbox.views.generic.object_views.ObjectDeleteView" class="doc doc-heading">
+        <code>
+ObjectDeleteView            (<span title="utilities.views.GetReturnURLMixin">GetReturnURLMixin</span>, <a class="autorefs autorefs-internal" title="netbox.views.generic.base.BaseObjectView" href="#netbox.views.generic.base.BaseObjectView">BaseObjectView</a>)
+        </code>
+
+
+
+</h3>
+
+    <div class="doc doc-contents first">
+
+      <p>Delete a single object.</p>
+
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="netbox.views.generic.object_views.ObjectChildrenView" class="doc doc-heading">
+        <code>
+ObjectChildrenView            (<a class="autorefs autorefs-internal" title="netbox.views.generic.object_views.ObjectView" href="#netbox.views.generic.object_views.ObjectView">ObjectView</a>, <span title="netbox.views.generic.mixins.ActionsMixin">ActionsMixin</span>, <span title="netbox.views.generic.mixins.TableMixin">TableMixin</span>)
+        </code>
+
+
+
+</h3>
+
+    <div class="doc doc-contents first">
+
+      <p>Display a table of child objects associated with the parent object. For example, NetBox uses this to display
+the set of child IP addresses within a parent prefix.</p>
+
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>child_model</code></td>
+        <td></td>
+        <td><p>The model class which represents the child objects</p></td>
+      </tr>
+      <tr>
+        <td><code>table</code></td>
+        <td></td>
+        <td><p>The django-tables2 Table class used to render the child objects list</p></td>
+      </tr>
+      <tr>
+        <td><code>filterset</code></td>
+        <td></td>
+        <td><p>A django-filter FilterSet that is applied to the queryset</p></td>
+      </tr>
+      <tr>
+        <td><code>actions</code></td>
+        <td></td>
+        <td><p>Supported actions for the model. When adding custom actions, bulk action names must
+be prefixed with <code>bulk_</code>. Default actions: add, import, export, bulk_edit, bulk_delete</p></td>
+      </tr>
+      <tr>
+        <td><code>action_perms</code></td>
+        <td></td>
+        <td><p>A dictionary mapping supported actions to a set of permissions required for each</p></td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h4 id="netbox.views.generic.object_views.ObjectChildrenView.get_children" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Return a QuerySet of child objects.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>request</code></td>
+        <td></td>
+        <td><p>The current request</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>parent</code></td>
+        <td></td>
+        <td><p>The parent object</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h4 id="netbox.views.generic.object_views.ObjectChildrenView.prep_table_data" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">prep_table_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">queryset</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Provides a hook for subclassed views to modify data before initializing the table.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>request</code></td>
+        <td></td>
+        <td><p>The current request</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>queryset</code></td>
+        <td></td>
+        <td><p>The filtered queryset of child objects</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>parent</code></td>
+        <td></td>
+        <td><p>The parent object</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+<h2 id="multi-object-views">Multi-Object Views</h2>
+<p>Below are the class definitions for NetBox's multi-object views. These views handle simultaneous actions for sets objects. The list, import, edit, and delete views each inherit from <code>BaseMultiObjectView</code>, which is not intended to be used directly.</p>
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="netbox.views.generic.base.BaseMultiObjectView" class="doc doc-heading">
+        <code>
+BaseMultiObjectView            (<span title="utilities.views.ObjectPermissionRequiredMixin">ObjectPermissionRequiredMixin</span>, <span title="django.views.generic.base.View">View</span>)
+        </code>
+
+
+
+</h3>
+
+    <div class="doc doc-contents first">
+
+      <p>Base class for generic views which display or manipulate multiple objects.</p>
+
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>queryset</code></td>
+        <td></td>
+        <td><p>Django QuerySet from which the object(s) will be fetched</p></td>
+      </tr>
+      <tr>
+        <td><code>table</code></td>
+        <td></td>
+        <td><p>The django-tables2 Table class used to render the objects list</p></td>
+      </tr>
+      <tr>
+        <td><code>template_name</code></td>
+        <td></td>
+        <td><p>The name of the HTML template file to render</p></td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h4 id="netbox.views.generic.base.BaseMultiObjectView.get_queryset" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Return the base queryset for the view. By default, this returns <code>self.queryset.all()</code>.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>request</code></td>
+        <td></td>
+        <td><p>The current request</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h4 id="netbox.views.generic.base.BaseMultiObjectView.get_extra_context" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_extra_context</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Return any additional context data to include when rendering the template.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>request</code></td>
+        <td></td>
+        <td><p>The current request</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="netbox.views.generic.bulk_views.ObjectListView" class="doc doc-heading">
+        <code>
+ObjectListView            (<a class="autorefs autorefs-internal" title="netbox.views.generic.base.BaseMultiObjectView" href="#netbox.views.generic.base.BaseMultiObjectView">BaseMultiObjectView</a>, <span title="netbox.views.generic.mixins.ActionsMixin">ActionsMixin</span>, <span title="netbox.views.generic.mixins.TableMixin">TableMixin</span>)
+        </code>
+
+
+
+</h3>
+
+    <div class="doc doc-contents first">
+
+      <p>Display multiple objects, all the same type, as a table.</p>
+
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>filterset</code></td>
+        <td></td>
+        <td><p>A django-filter FilterSet that is applied to the queryset</p></td>
+      </tr>
+      <tr>
+        <td><code>filterset_form</code></td>
+        <td></td>
+        <td><p>The form class used to render filter options</p></td>
+      </tr>
+      <tr>
+        <td><code>actions</code></td>
+        <td></td>
+        <td><p>Supported actions for the model. When adding custom actions, bulk action names must
+be prefixed with <code>bulk_</code>. Default actions: add, import, export, bulk_edit, bulk_delete</p></td>
+      </tr>
+      <tr>
+        <td><code>action_perms</code></td>
+        <td></td>
+        <td><p>A dictionary mapping supported actions to a set of permissions required for each</p></td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h4 id="netbox.views.generic.bulk_views.ObjectListView.export_table" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">export_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Export all table data in CSV format.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>table</code></td>
+        <td></td>
+        <td><p>The Table instance to export</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>columns</code></td>
+        <td></td>
+        <td><p>A list of specific columns to include. If None, all columns will be exported.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>filename</code></td>
+        <td></td>
+        <td><p>The name of the file attachment sent to the client. If None, will be determined automatically
+from the queryset model name.</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h4 id="netbox.views.generic.bulk_views.ObjectListView.export_template" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">export_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Render an ExportTemplate using the current queryset.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>template</code></td>
+        <td></td>
+        <td><p>ExportTemplate instance</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>request</code></td>
+        <td></td>
+        <td><p>The current request</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="netbox.views.generic.bulk_views.BulkImportView" class="doc doc-heading">
+        <code>
+BulkImportView            (<span title="utilities.views.GetReturnURLMixin">GetReturnURLMixin</span>, <a class="autorefs autorefs-internal" title="netbox.views.generic.base.BaseMultiObjectView" href="#netbox.views.generic.base.BaseMultiObjectView">BaseMultiObjectView</a>)
+        </code>
+
+
+
+</h3>
+
+    <div class="doc doc-contents first">
+
+      <p>Import objects in bulk (CSV format).</p>
+
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>model_form</code></td>
+        <td></td>
+        <td><p>The form used to create each imported object</p></td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h4 id="netbox.views.generic.bulk_views.BulkImportView.save_object" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">save_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_form</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Provide a hook to modify the object immediately before saving it (e.g. to encrypt secret data).</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>object_form</code></td>
+        <td></td>
+        <td><p>The model form instance</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>request</code></td>
+        <td></td>
+        <td><p>The current request</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="netbox.views.generic.bulk_views.BulkEditView" class="doc doc-heading">
+        <code>
+BulkEditView            (<span title="utilities.views.GetReturnURLMixin">GetReturnURLMixin</span>, <a class="autorefs autorefs-internal" title="netbox.views.generic.base.BaseMultiObjectView" href="#netbox.views.generic.base.BaseMultiObjectView">BaseMultiObjectView</a>)
+        </code>
+
+
+
+</h3>
+
+    <div class="doc doc-contents first">
+
+      <p>Edit objects in bulk.</p>
+
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>filterset</code></td>
+        <td></td>
+        <td><p>FilterSet to apply when deleting by QuerySet</p></td>
+      </tr>
+      <tr>
+        <td><code>form</code></td>
+        <td></td>
+        <td><p>The form class used to edit objects in bulk</p></td>
+      </tr>
+  </tbody>
+</table>
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="netbox.views.generic.bulk_views.BulkDeleteView" class="doc doc-heading">
+        <code>
+BulkDeleteView            (<span title="utilities.views.GetReturnURLMixin">GetReturnURLMixin</span>, <a class="autorefs autorefs-internal" title="netbox.views.generic.base.BaseMultiObjectView" href="#netbox.views.generic.base.BaseMultiObjectView">BaseMultiObjectView</a>)
+        </code>
+
+
+
+</h3>
+
+    <div class="doc doc-contents first">
+
+      <p>Delete objects in bulk.</p>
+
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>filterset</code></td>
+        <td></td>
+        <td><p>FilterSet to apply when deleting by QuerySet</p></td>
+      </tr>
+      <tr>
+        <td><code>table</code></td>
+        <td></td>
+        <td><p>The table used to display devices being deleted</p></td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h4 id="netbox.views.generic.bulk_views.BulkDeleteView.get_form" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_form</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Provide a standard bulk delete form if none has been specified for the view</p>
+
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+<h2 id="feature-views">Feature Views</h2>
+<p>These views are provided to enable or enhance certain NetBox model features, such as change logging or journaling. These typically do not need to be subclassed: They can be used directly e.g. in a URL path.</p>
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="netbox.views.generic.feature_views.ObjectChangeLogView" class="doc doc-heading">
+        <code>
+ObjectChangeLogView            (<span title="django.views.generic.base.View">View</span>)
+        </code>
+
+
+
+</h3>
+
+    <div class="doc doc-contents first">
+
+      <p>Present a history of changes made to a particular object. The model class must be passed as a keyword argument
+when referencing this view in a URL path. For example:</p>
+<pre><code>path('sites/&lt;int:pk&gt;/changelog/', ObjectChangeLogView.as_view(), name='site_changelog', kwargs={'model': Site}),
+</code></pre>
+
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>base_template</code></td>
+        <td></td>
+        <td><p>The name of the template to extend. If not provided, "{app}/{model}.html" will be used.</p></td>
+      </tr>
+  </tbody>
+</table>
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="netbox.views.generic.feature_views.ObjectJournalView" class="doc doc-heading">
+        <code>
+ObjectJournalView            (<span title="django.views.generic.base.View">View</span>)
+        </code>
+
+
+
+</h3>
+
+    <div class="doc doc-contents first">
+
+      <p>Show all journal entries for an object. The model class must be passed as a keyword argument when referencing this
+view in a URL path. For example:</p>
+<pre><code>path('sites/&lt;int:pk&gt;/journal/', ObjectJournalView.as_view(), name='site_journal', kwargs={'model': Site}),
+</code></pre>
+
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>base_template</code></td>
+        <td></td>
+        <td><p>The name of the template to extend. If not provided, "{app}/{model}.html" will be used.</p></td>
+      </tr>
+  </tbody>
+</table>
+
+
+    </div>
+
+  </div>
+
+<h2 id="extending-core-views">Extending Core Views</h2>
+<h3 id="additional-tabs">Additional Tabs</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This feature was introduced in NetBox v3.4.</p>
+</div>
+<p>Plugins can "attach" a custom view to a core NetBox model by registering it with <code>register_model_view()</code>. To include a tab for this view within the NetBox UI, declare a TabView instance named <code>tab</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">dcim.models</span> <span class="kn">import</span> <span class="n">Site</span>
+<span class="kn">from</span> <span class="nn">myplugin.models</span> <span class="kn">import</span> <span class="n">Stuff</span>
+<span class="kn">from</span> <span class="nn">netbox.views</span> <span class="kn">import</span> <span class="n">generic</span>
+<span class="kn">from</span> <span class="nn">utilities.views</span> <span class="kn">import</span> <span class="n">ViewTab</span><span class="p">,</span> <span class="n">register_model_view</span>
+
+<span class="nd">@register_model_view</span><span class="p">(</span><span class="n">Site</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;myview&#39;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;some-other-stuff&#39;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">MyView</span><span class="p">(</span><span class="n">generic</span><span class="o">.</span><span class="n">ObjectView</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="n">tab</span> <span class="o">=</span> <span class="n">ViewTab</span><span class="p">(</span>
+        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Other Stuff&#39;</span><span class="p">,</span>
+        <span class="n">badge</span><span class="o">=</span><span class="k">lambda</span> <span class="n">obj</span><span class="p">:</span> <span class="n">Stuff</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="n">obj</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span>
+        <span class="n">permission</span><span class="o">=</span><span class="s1">&#39;myplugin.view_stuff&#39;</span>
+    <span class="p">)</span>
+</code></pre></div>
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="utilities.views.register_model_view" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">register_model_view</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents first">
+
+      <p>This decorator can be used to "attach" a view to any model in NetBox. This is typically used to inject
+additional tabs within a model's detail view. For example, to add a custom tab to NetBox's dcim.Site model:</p>
+<pre><code>@netbox_model_view(Site, 'myview', path='my-custom-view')
+class MyView(ObjectView):
+    ...
+</code></pre>
+<p>This will automatically create a URL path for MyView at <code>/dcim/sites/&lt;id&gt;/my-custom-view/</code> which can be
+resolved using the view name `dcim:site_myview'.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>model</code></td>
+        <td></td>
+        <td><p>The Django model class with which this view will be associated.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>name</code></td>
+        <td></td>
+        <td><p>The string used to form the view's name for URL resolution (e.g. via <code>reverse()</code>). This will be appended
+to the name of the base view for the model using an underscore. If blank, the model name will be used.</p></td>
+        <td><code>&#39;&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>path</code></td>
+        <td></td>
+        <td><p>The URL path by which the view can be reached (optional). If not provided, <code>name</code> will be used.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>kwargs</code></td>
+        <td></td>
+        <td><p>A dictionary of keyword arguments for the view to include when registering its URL path (optional).</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="utilities.views.ViewTab" class="doc doc-heading">
+        <code>
+ViewTab        </code>
+
+
+
+</h3>
+
+    <div class="doc doc-contents first">
+
+      <p>ViewTabs are used for navigation among multiple object-specific views, such as the changelog or journal for
+a particular object.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>label</code></td>
+        <td></td>
+        <td><p>Human-friendly text</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>badge</code></td>
+        <td></td>
+        <td><p>A static value or callable to display alongside the label (optional). If a callable is used, it must
+accept a single argument representing the object being viewed.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>weight</code></td>
+        <td></td>
+        <td><p>Numeric weight to influence ordering among other tabs (default: 1000)</p></td>
+        <td><code>1000</code></td>
+      </tr>
+      <tr>
+        <td><code>permission</code></td>
+        <td></td>
+        <td><p>The permission required to display the tab (optional).</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>hide_if_empty</code></td>
+        <td></td>
+        <td><p>If true, the tab will be displayed only if its badge has a meaningful value. (Tabs without a
+badge are always displayed.)</p></td>
+        <td><code>False</code></td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h4 id="utilities.views.ViewTab.render" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">)</span></code>
+
+
+</h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Return the attributes needed to render a tab in HTML.</p>
+
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+<h3 id="extra-template-content">Extra Template Content</h3>
+<p>Plugins can inject custom content into certain areas of core NetBox views. This is accomplished by subclassing <code>PluginTemplateExtension</code>, designating a particular NetBox model, and defining the desired method(s) to render custom content. Five methods are available:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>View</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>left_page()</code></td>
+<td>Object view</td>
+<td>Inject content on the left side of the page</td>
+</tr>
+<tr>
+<td><code>right_page()</code></td>
+<td>Object view</td>
+<td>Inject content on the right side of the page</td>
+</tr>
+<tr>
+<td><code>full_width_page()</code></td>
+<td>Object view</td>
+<td>Inject content across the entire bottom of the page</td>
+</tr>
+<tr>
+<td><code>buttons()</code></td>
+<td>Object view</td>
+<td>Add buttons to the top of the page</td>
+</tr>
+<tr>
+<td><code>list_buttons()</code></td>
+<td>List view</td>
+<td>Add buttons to the top of the page</td>
+</tr>
+</tbody>
+</table>
+<p>Additionally, a <code>render()</code> method is available for convenience. This method accepts the name of a template to render, and any additional context data you want to pass. Its use is optional, however.</p>
+<p>When a PluginTemplateExtension is instantiated, context data is assigned to <code>self.context</code>. Available data include:</p>
+<ul>
+<li><code>object</code> - The object being viewed (object views only)</li>
+<li><code>model</code> - The model of the list view (list views only)</li>
+<li><code>request</code> - The current request</li>
+<li><code>settings</code> - Global NetBox settings</li>
+<li><code>config</code> - Plugin-specific configuration parameters</li>
+</ul>
+<p>For example, accessing <code>{{ request.user }}</code> within a template will return the current user.</p>
+<p>Declared subclasses should be gathered into a list or tuple for integration with NetBox. By default, NetBox looks for an iterable named <code>template_extensions</code> within a <code>template_content.py</code> file. (This can be overridden by setting <code>template_extensions</code> to a custom value on the plugin's PluginConfig.) An example is below.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">extras.plugins</span> <span class="kn">import</span> <span class="n">PluginTemplateExtension</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Animal</span>
+
+<span class="k">class</span> <span class="nc">SiteAnimalCount</span><span class="p">(</span><span class="n">PluginTemplateExtension</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="s1">&#39;dcim.site&#39;</span>
+
+    <span class="k">def</span> <span class="nf">right_page</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s1">&#39;netbox_animal_sounds/inc/animal_count.html&#39;</span><span class="p">,</span> <span class="n">extra_context</span><span class="o">=</span><span class="p">{</span>
+            <span class="s1">&#39;animal_count&#39;</span><span class="p">:</span> <span class="n">Animal</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span>
+        <span class="p">})</span>
+
+<span class="n">template_extensions</span> <span class="o">=</span> <span class="p">[</span><span class="n">SiteAnimalCount</span><span class="p">]</span>
+</code></pre></div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../models/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Models" rel="prev">
+            <div class="md-footer__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <div class="md-ellipsis">
+                <span class="md-footer__direction">
+                  Previous
+                </span>
+                Models
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../navigation/" class="md-footer__link md-footer__link--next" aria-label="Next: Navigation" rel="next">
+            <div class="md-footer__title">
+              <div class="md-ellipsis">
+                <span class="md-footer__direction">
+                  Next
+                </span>
+                Navigation
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/netbox-community/netbox" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://netdev.chat/" target="_blank" rel="noopener" title="netdev.chat" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M94.12 315.1c0 25.9-21.16 47.06-47.06 47.06S0 341 0 315.1c0-25.9 21.16-47.06 47.06-47.06h47.06v47.06zm23.72 0c0-25.9 21.16-47.06 47.06-47.06s47.06 21.16 47.06 47.06v117.84c0 25.9-21.16 47.06-47.06 47.06s-47.06-21.16-47.06-47.06V315.1zm47.06-188.98c-25.9 0-47.06-21.16-47.06-47.06S139 32 164.9 32s47.06 21.16 47.06 47.06v47.06H164.9zm0 23.72c25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06H47.06C21.16 243.96 0 222.8 0 196.9s21.16-47.06 47.06-47.06H164.9zm188.98 47.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06h-47.06V196.9zm-23.72 0c0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06V79.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06V196.9zM283.1 385.88c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06v-47.06h47.06zm0-23.72c-25.9 0-47.06-21.16-47.06-47.06 0-25.9 21.16-47.06 47.06-47.06h117.84c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06H283.1z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "navigation.footer"], "search": "../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.19047be9.min.js"></script>
+      
+    
+  </body>
+</html>

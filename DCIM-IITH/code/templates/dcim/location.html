@@ -1,0 +1,104 @@
+{% extends 'generic/object.html' %}
+{% load helpers %}
+{% load plugins %}
+{% load render_table from django_tables2 %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% for location in object.get_ancestors %}
+    <li class="breadcrumb-item">{{ location|linkify }}</li>
+  {% endfor %}
+{% endblock %}
+
+{% block extra_controls %}
+  {% if perms.dcim.add_location %}
+    <a href="{% url 'dcim:location_add' %}?site={{ object.site.pk }}&parent={{ object.pk }}" class="btn btn-sm btn-primary">
+      <span class="mdi mdi-plus-thick" aria-hidden="true"></span> Add Child Location
+    </a>
+  {% endif %}
+{% endblock extra_controls %}
+
+{% block content %}
+<div class="row mb-3">
+	<div class="col col-md-6">
+    <div class="card">
+      <h5 class="card-header">
+        Location
+      </h5>
+      <div class="card-body">
+        <table class="table table-hover attr-table">
+          <tr>
+            <th scope="row">Name</th>
+            <td>{{ object.name }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Description</th>
+            <td>{{ object.description|placeholder }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Site</th>
+            <td>{{ object.site|linkify }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Parent</th>
+            <td>{{ object.parent|linkify|placeholder }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Status</th>
+            <td>{% badge object.get_status_display bg_color=object.get_status_color %}</td>
+          </tr>
+          <tr>
+            <th scope="row">Tenant</th>
+            <td>
+              {% if object.tenant.group %}
+                {{ object.tenant.group|linkify }} /
+              {% endif %}
+              {{ object.tenant|linkify|placeholder }}
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Racks</th>
+            <td class="position-relative">
+              {% if rack_count %}
+                <div class="position-absolute top-50 end-0 translate-middle-y noprint">
+                  <a href="{% url 'dcim:rack_elevation_list' %}?location_id={{ object.pk }}" class="btn btn-sm btn-primary" title="View elevations">
+                    <i class="mdi mdi-server"></i>
+                  </a>
+                </div>
+              {% endif %}
+              <a href="{% url 'dcim:rack_list' %}?location_id={{ object.pk }}">{{ rack_count }}</a>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Devices</th>
+            <td>
+              <a href="{% url 'dcim:device_list' %}?location_id={{ object.pk }}">{{ device_count }}</a>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    {% include 'inc/panels/tags.html' %}
+    {% plugin_left_page object %}
+  </div>
+	<div class="col col-md-6">
+    {% include 'inc/panels/custom_fields.html' %}
+    {% include 'inc/panels/contacts.html' %}
+    {% include 'dcim/inc/nonracked_devices.html' %}
+    {% include 'inc/panels/image_attachments.html' %}
+    {% plugin_right_page object %}
+	</div>
+</div>
+<div class="row mb-3">
+	<div class="col col-md-12">
+    <div class="card">
+      <h5 class="card-header">Locations</h5>
+      <div class="card-body table-responsive">
+        {% render_table child_locations_table 'inc/table.html' %}
+        {% include 'inc/paginator.html' with paginator=child_locations_table.paginator page=child_locations_table.page %}
+      </div>
+    </div>
+    {% plugin_full_width_page object %}
+  </div>
+</div>
+{% endblock %}
